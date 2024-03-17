@@ -1,0 +1,76 @@
+typedef unsigned char u8;
+typedef unsigned short u16;
+typedef unsigned int u32;
+typedef unsigned long u64;
+
+float m_pow(float num, int power);
+float m_inv_sqrt(float num);
+float m_fabs(float num);
+float m_sqrt(float num);
+float m_sin(float n);
+int m_fact(int n);
+
+float m_pow(float num, int power)
+{
+	if (power < 0)
+	{
+		u32 count = -power;
+		float res = num;
+		for (u32 i = 0; i < count; ++i)
+			res *= num;
+		return (1 / res);
+	}
+	else if (power > 0)
+	{
+		float res = num;
+		for (int i = 0; i < power; ++i)
+			res *= num;
+		return (res);
+	}
+	else if (power == 0)
+		return (1);
+	return (0);
+}
+
+float m_fabs(float num)
+{
+	if (num < 0)
+		return (-num);
+	return num;
+}
+
+float m_inv_sqrt(float num)
+{
+	float xhalf = 0.5f * num;
+	int i = * (int *) &num;
+
+	i = 0x5f3759df - (i >> 1);
+	num = *(float *) &i;
+	num = num * (1.5f - xhalf * num * num);
+	return num;
+}
+
+float m_sqrt(float num)
+{
+	if (num > 0)
+		return (m_inv_sqrt(num) * num);
+	return (-1);
+}
+
+int m_fact(int n)
+{
+	if (n == 0)
+		return (1);
+	return (n * m_fact(n - 1));
+}
+
+//float m_sin(float n)
+//{
+//	float x;
+//	float fact = 9;
+//
+//	while (fact)
+//	{
+//	}
+//}
+
